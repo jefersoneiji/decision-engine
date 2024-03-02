@@ -1,0 +1,22 @@
+{
+    "name": "vom-take-home",
+    "version": "0.0.1",
+    "private": true,
+    "main": "index.js",
+    "repository": "https://github.com/vomdecision/take-home.git",
+    "license": "MIT",
+    "scripts": {
+      "dev": "turbo dev"
+    },
+    "devDependencies": {
+      "turbo": "latest"
+    },
+    "engines": {
+      "node": ">=18"
+    },
+    "packageManager": "yarn@1.22.19",
+    "workspaces": [
+      "backend",
+      "frontend"
+    ]
+  }
