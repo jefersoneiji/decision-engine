@@ -30,6 +30,7 @@ export type Graph = {
   setNodes: Dispatch<SetStateAction<Node[]>>;
   setEdges: Dispatch<SetStateAction<Edge[]>>;
   addNodeAfterEdge: (params: { nodeName: NodeName; edge: Edge }) => void;
+  updateNode: (params: { id: string, operation: string, parameter: string, value: number, label: string }) => void;
   reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance: Dispatch<SetStateAction<ReactFlowInstance | null>>;
   fitZoomToGraph: (reactFlowRef: RefObject<HTMLDivElement>) => void;
@@ -76,6 +77,22 @@ export function GraphProvider({ children }: PropsWithChildren) {
     positionElements(updatedNodes, updatedEdges);
   };
 
+  const updateNode: Graph['updateNode'] = ({ id: nodeId, operation, parameter, value, label }) => {
+    const updatedNodes = nodes.map(node => node.id === nodeId ? {
+      ...node,
+      data: Object.assign(node.data, {
+        operation,
+        parameter,
+        value,
+        label
+      })
+    } : node)
+
+    positionElements(updatedNodes, edges)
+
+    closeEditorDrawer();
+  }
+
   function fitZoomToGraph(reactFlowRef: RefObject<HTMLDivElement>) {
     const graphHeight = nodes.reduce((biggestHeight, node) => {
       const graphHeightTillNode = node.position.y;
@@ -115,6 +132,7 @@ export function GraphProvider({ children }: PropsWithChildren) {
       value={{
         nodes,
         setNodes,
+        updateNode,
         edges,
         setEdges,
         addNodeAfterEdge,
