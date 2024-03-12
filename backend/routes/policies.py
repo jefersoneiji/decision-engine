@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, current_app, request
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from database import dbTypeInApp
 
 execute_policies = Blueprint('policies', __name__, url_prefix='/policies')
