@@ -1,6 +1,9 @@
 import "reactflow/dist/style.css";
+import 'react-toastify/dist/ReactToastify.css'
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import ReactFlow, { Background } from "reactflow";
+import ReactFlow, { Background, Panel, useReactFlow } from "reactflow";
+import { ToastContainer } from 'react-toastify'
+
 import { AddNodeEdge } from "./AddNodeEdge";
 import { CurrentDrawer } from "./Drawers";
 import { EditorProvider } from "./Editor";
@@ -8,6 +11,7 @@ import { GraphProvider, graph } from "./Graph";
 import { allNodes } from "./Nodes";
 import { generateEdge, generateNode } from "./nodeGeneration";
 import { positionNodes } from "./positionNodes";
+import { savePolicy } from "@src/api/policies";
 
 const edgeTypes = {
   "add-node": AddNodeEdge,
@@ -79,12 +83,26 @@ function ReactFlowSandbox() {
         deleteKeyCode={null}
       >
         <Background className="bg-N-75" size={2} color="#C1C4D6" />
+        <Panel position="bottom-right">
+          <SaveButton />
+        </Panel>
       </ReactFlow>
+      <ToastContainer />
       <CurrentDrawer />
     </div>
   );
 }
-
+const SaveButton = () => {
+  const { toObject } = useReactFlow()
+  return (
+    <button
+      className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      onClick={() => savePolicy(toObject())}
+    >
+      Save policy
+    </button>
+  )
+}
 export function GraphEditor() {
   return (
     <EditorProvider>
