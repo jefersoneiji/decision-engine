@@ -1,1 +1,5 @@
+# Cache files
 __pycache__/
+
+# Database Files
+*.db
