@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, current_app, request
+from flask_cors import CORS
 from database import dbTypeInApp
 
 execute_policies = Blueprint('policies', __name__, url_prefix='/policies')
+cors = CORS(execute_policies, resources={r'/*': {'origins': '*'}})
 app: dbTypeInApp = current_app
 
 @execute_policies.route('/', methods=['GET'])

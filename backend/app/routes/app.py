@@ -25,4 +25,3 @@ def after_request(response):
 
 app.register_blueprint(execute_policy)
 app.register_blueprint(execute_policies)
-app.config.from_object(databaseSetup)
