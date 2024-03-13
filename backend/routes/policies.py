@@ -11,9 +11,14 @@ def getAllPolicies():
     policiesList = app.db.readPolicies()
     return jsonify(policiesList)
 
+@execute_policies.route('/<string:id>', methods=['GET'])
+def getPolicy(id):
+    policy = app.db.readPolicy(id)
+    return jsonify(policy)
+
 @execute_policies.route('/', methods=['POST'])
 def createPolicy():
     data  = request.get_json()
     newPolicy = app.db.createPolicy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
-    return jsonify(newPolicy)
+    return jsonify(newPolicy), 201
 
