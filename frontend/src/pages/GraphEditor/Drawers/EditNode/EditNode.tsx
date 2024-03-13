@@ -13,15 +13,15 @@ type EditNodeDrawerProps = {
 
 export const EditNodeDrawer = ({ id: nodeId, operation, parameter, value }: EditNodeDrawerProps) => {
     const { drawerVisible, closeEditorDrawer } = useContext(editor)
-    const { updateNode } = useContext(graph)
+    const { updateNode, deleteNode } = useContext(graph)
 
     const [currOperation, setOperation] = useState(operation || '>')
-    const [currParameter, setParameter] = useState(parameter || '')
+    const [currParameter, setParameter] = useState(parameter || 'random')
     const [currValue, setValue] = useState(value || 0)
 
     const onSave = () => {
         const label = currParameter + ' ' + currOperation + " " + currValue
-        updateNode(nodeId!,{
+        updateNode(nodeId!, {
             operation: currOperation,
             parameter: currParameter,
             value: currValue,
@@ -29,6 +29,9 @@ export const EditNodeDrawer = ({ id: nodeId, operation, parameter, value }: Edit
         })
     }
 
+    const onDelete = () => {
+        deleteNode(nodeId!)
+    }
     return (
         <Drawer
             title="Edit Node"
@@ -65,6 +68,9 @@ export const EditNodeDrawer = ({ id: nodeId, operation, parameter, value }: Edit
                     />
                     <br />
                     <br />
+                    <button onClick={onDelete} className='mr-5 bg-red-500 hover:bg-red-200 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
+                        Delete Node
+                    </button>
                     <button onClick={onSave} className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
                         Save
                     </button>
