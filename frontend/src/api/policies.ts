@@ -36,10 +36,10 @@ export type PolicyData = {
     viewport: Viewport
 }
 
-export async function savePolicy(data: ReactFlowJsonObject<PolicyData>) {
+export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & {title: string}) {
     try {
         await instance.post('/policies/', {
-            title: 'Lorem ipsum',
+            title: data.title,
             edges: data.edges,
             nodes: data.nodes,
         })

@@ -4,6 +4,7 @@ import { DrawerName, editor } from '../Editor';
 import { ChooseNodeDrawer } from './ChooseNode/ChooseNode';
 import { EditNodeDrawer } from './EditNode/EditNode';
 import { EditDecisionNodeDrawer } from './EditNode/EditDecisionNode';
+import { EditPolicyDrawer } from './EditPolicy/EditPolicy';
 
 export type CommonDrawerProps = {
   id?: string;
@@ -13,7 +14,8 @@ export type CommonDrawerProps = {
 export const drawers = {
   [DrawerName.newNode]: ChooseNodeDrawer,
   [DrawerName.editNode]: EditNodeDrawer,
-  [DrawerName.editDecisionNode]: EditDecisionNodeDrawer
+  [DrawerName.editDecisionNode]: EditDecisionNodeDrawer,
+  [DrawerName.editPolicy]: EditPolicyDrawer
 } satisfies Record<DrawerName, (props: never) => JSX.Element>;
 
 export const CurrentDrawer = () => {

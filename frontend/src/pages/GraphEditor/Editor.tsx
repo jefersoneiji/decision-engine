@@ -7,6 +7,7 @@ export enum DrawerName {
   newNode,
   editNode,
   editDecisionNode,
+  editPolicy, 
 }
 
 export type Editor = {
