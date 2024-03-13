@@ -24,6 +24,7 @@ class NodeData:
     parameter: str
     operation: str
     value: str
+    decision: str
 
 class Node: 
     id: str
