@@ -1,13 +1,28 @@
 import { Handle, NodeProps, Position } from "reactflow";
 
 import { NodeWrapper } from "./NodeWrapper";
+import { useContext } from "react";
+import { DrawerName, editor } from "../Editor";
 
 type EndNodeData = {
   width: number;
   height: number;
+  decision: string;
 };
 
-export function EndNode({ data }: NodeProps<EndNodeData>) {
+export function EndNode({ data, id: nodeId }: NodeProps<EndNodeData>) {
+  const { showDrawer } = useContext(editor)
+  
+  const onShowDrawer = () => {
+    const { decision } = data
+    showDrawer(
+      DrawerName.editDecisionNode,
+      {
+        id: nodeId,
+        decision
+      }
+    )
+  }
   return (
     <NodeWrapper>
       <div
@@ -16,6 +31,7 @@ export function EndNode({ data }: NodeProps<EndNodeData>) {
           width: data.width,
           height: data.height,
         }}
+        onClick={onShowDrawer}
       >
         <Handle
           type="target"
@@ -24,7 +40,7 @@ export function EndNode({ data }: NodeProps<EndNodeData>) {
           position={Position.Top}
           isConnectable={false}
         />
-        <p className="font-medium">{"End"}</p>
+        <p className="font-medium">{data.decision}</p>
       </div>
     </NodeWrapper>
   );

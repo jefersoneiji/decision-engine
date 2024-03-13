@@ -53,7 +53,7 @@ export function insertNodeAfterEdge<SelectedNodeName extends NodeName>({
       });
 
       const newEndNodes = {
-        branch: generateNode({ nodeName: "end" }),
+        branch: generateNode({ nodeName: "end", data: { decision: 'False' } }),
       };
 
       const newEdges = [
