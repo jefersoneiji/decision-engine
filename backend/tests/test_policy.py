@@ -17,4 +17,10 @@ def testPolicy(client):
     checkResponse(response, status=201)
     response = getPolicy(client, response.get_json()['id'])
     checkResponse(response, status=200, length=5)
-    
+
+def testGetPolicy(client):
+    createPolicy(client)
+
+    # Test fetching non existent policy
+    response = getPolicy(client, id=8)
+    checkResponse(response, status=404, data={'error': 'Not Found'})

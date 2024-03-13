@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, current_app, request
+from flask import Blueprint, jsonify, current_app, request, abort
 from flask_cors import CORS
 from database import dbTypeInApp
 
@@ -14,6 +14,8 @@ def getAllPolicies():
 @execute_policies.route('/<string:id>', methods=['GET'])
 def getPolicy(id):
     policy = app.db.readPolicy(id)
+    if not policy: 
+        abort(404)
     return jsonify(policy)
 
 @execute_policies.route('/', methods=['POST'])
