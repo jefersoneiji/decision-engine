@@ -1,5 +1,7 @@
 # Frontend
 
+It's the UI for creating, editing and storing one Policy. 
+
 ## Tech used
 
 - React (vite)
@@ -8,13 +10,10 @@
 - Tailwind
 - Framer-Motion
 
-**There is no package manager set, feel free to use your personal preference.**
-
 ## How to run
 
 ```shell
-# npm is just an example, use your package manager
-npm run dev
+yarn dev
 ```
 
 ## Docs
@@ -30,11 +29,12 @@ that when clicked, opens a Drawer to add a new node between the two.
 
 ### Contexts
 
-In the root page we have 2 contexts:
+In the root page we have 3 contexts:
 
 - editor: For UI stuff, for example the Drawer state.
 - graph: ReactFlow-related states and functions, to add nodes, zoom graph and
   more.
+- policy: Responsible for holding Policy information and related operations such as changing it's own name.
 
 ### Utility
 
