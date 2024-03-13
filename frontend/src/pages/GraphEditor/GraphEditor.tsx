@@ -103,10 +103,12 @@ function ReactFlowSandbox() {
 }
 const SaveButton = () => {
   const { toObject } = useReactFlow()
+  const {title} = useContext(policy)
+
   return (
     <button
       className="mb-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-      onClick={() => savePolicy(toObject())}
+      onClick={() => savePolicy({...toObject(), title})}
     >
       Save policy
     </button>
