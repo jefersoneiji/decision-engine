@@ -18,7 +18,11 @@ class Database:
         self.session.add(newPolicy)
         self.session.commit()
         
-        return self.readPolicies()
+        return self.readPolicy(id=newPolicy.id)
+
+    def clearDatabase(self):
+        self.session.query(Policy).delete()
+        self.session.commit()
 
     def closeConnection(self, execution=None):
         self.session.close()
