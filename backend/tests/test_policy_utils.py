@@ -1,33 +1,33 @@
 import json
 
-def loadMockData(filePath):
-    with open(filePath) as file:
+def load_mock_data(file_path):
+    with open(file_path) as file:
         return json.load(file)
 
-def generatePolicy():
-    data = loadMockData('./tests/mockData.json')
+def generate_policy():
+    data = load_mock_data('./tests/mockData.json')
     return data
 
-def createPolicy(client):
-    return client.post('/policies/', json=generatePolicy())
+def create_policy(client):
+    return client.post('/policies/', json=generate_policy())
 
-def getPolicy(client,id):
+def get_policy(client,id):
     return client.get(f'/policies/{id}')
 
 def contains(value):
-    def containsData(data):
+    def contains_data(data):
         for key in data: 
             if key in value:
                 assert data[key] == value[key]
-    return containsData
+    return contains_data
 
-def checkResponse(response,status=None, length=None, data=None):
-    responseData = response.get_json()
+def check_response(response,status=None, length=None, data=None):
+    response_data = response.get_json()
     if status is not None:
         assert response.status_code == status
     if length != None: 
-        assert len(responseData) == length
+        assert len(response_data) == length
     if data is not None: 
-        assert responseData == data
+        assert response_data == data
         if length != None:
-            assert len(responseData) == length
+            assert len(response_data) == length

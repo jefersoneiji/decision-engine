@@ -7,20 +7,20 @@ cors = CORS(execute_policies, resources={r'/*': {'origins': '*'}})
 app: dbTypeInApp = current_app
 
 @execute_policies.route('/', methods=['GET'])
-def getAllPolicies():
-    policiesList = app.db.readPolicies()
-    return jsonify(policiesList)
+def get_all_policies():
+    policies_list = app.db.read_policies()
+    return jsonify(policies_list)
 
 @execute_policies.route('/<string:id>', methods=['GET'])
-def getPolicy(id):
-    policy = app.db.readPolicy(id)
+def get_policy(id):
+    policy = app.db.read_policy(id)
     if not policy: 
         abort(404)
     return jsonify(policy)
 
 @execute_policies.route('/', methods=['POST'])
-def createPolicy():
+def create_policy():
     data  = request.get_json()
-    newPolicy = app.db.createPolicy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
-    return jsonify(newPolicy), 201
+    new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
+    return jsonify(new_policy), 201
 
