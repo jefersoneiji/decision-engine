@@ -1,7 +1,6 @@
 # Backend
 
-The backend is completely empty and up to you to build.
-You can use any tech you think would suit this challenge well.
+It contains the API for policy operations. The REST protocol is adopted. 
 
 ## Routes
 
@@ -19,18 +18,17 @@ PolicyDB is a SQLite local file responsible for storing `Policies`.
 
 Each Database Entity is located in the `Models` folder.
 
-SQLAlchemy is the choosen SQLClient. All db operations are tied to each respective endpoint in the `Routes` folder. 
+SQLAlchemy is the chosen SQLClient. All db operations are tied to each respective endpoint in the `Routes` folder.
 
 ## ExecutionEngine
 
-ExecutionEngine code is found under the `modules` folder. 
+ExecutionEngine code is found under the `modules` folder.
 
-Each `edge` holds information pointing either to an `end`, `start` or `conditional` node. 
+Each `edge` holds information pointing either to an `end`, `start`, or `conditional` node.
 
-In essence the execution engine navigates from `node to node`, based in each edge `target` and `source` fields.
+In essence, the execution engine navigates from `node to node`, based on each edge `target` and `source` fields.
 
-Each iteration uses recursion to either execute the operation inside the `conditional` node and go to the next node or return one `decision` node. 
-
+Each iteration uses recursion to either execute the operation inside the `conditional` node and go to the next node or return one `decision` node.
 
 
 ### Nodes
