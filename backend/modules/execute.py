@@ -16,6 +16,12 @@ def compare(data, node: Node):
         return parameter > value
     elif operation == '>=':
         return parameter >= value
+    elif operation == '<=':
+        return parameter <= value
+    elif operation == '<':
+        return parameter < value
+    elif operation == '=':
+        return parameter == value
 
 def findEdgeSource(edges: list[Edge], id: str, label: str):
     for edge in edges:
