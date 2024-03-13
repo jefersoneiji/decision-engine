@@ -6,7 +6,8 @@
     "repository": "https://github.com/vomdecision/take-home.git",
     "license": "MIT",
     "scripts": {
-      "dev": "turbo dev"
+      "dev": "turbo dev",
+      "install": "turbo install"
     },
     "devDependencies": {
       "turbo": "latest"

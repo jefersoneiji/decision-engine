@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "flask run"
+    "dev": "flask run",
+    "install": "pip install -r requirements.txt"
   }
 }
