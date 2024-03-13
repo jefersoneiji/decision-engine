@@ -12,7 +12,7 @@
 
 ## Summary 
 
-This decision engine is able to generate one final decision based on the user's decision tree. Next, this policy can be stored and executed in back-end. 
+This decision engine can generate one final decision based on the user's decision tree. Next, this policy can be stored and executed in the back-end.
 
 ## Prerequisites
 
