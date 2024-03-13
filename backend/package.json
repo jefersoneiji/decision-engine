@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "flask run",
+    "test": "pytest",
     "install": "pip install -r requirements.txt"
   }
 }
