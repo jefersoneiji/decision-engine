@@ -3,6 +3,16 @@
 The backend is completely empty and up to you to build.
 You can use any tech you think would suit this challenge well.
 
+## Routes
+
+| type | route | description |
+|---|---|---|
+|GET|`/policies/`|Retrieves all policies|
+|POST|`/policies/`|Creates a new policy|
+|GET|`/policies/<string:id>`|Retrives one policy|
+|POST|`/execute/<string:id>`|Executes one policy|
+
+
 ## PolicyDB
 
 PolicyDB is a SQLite local file responsible for storing `Policies`.
