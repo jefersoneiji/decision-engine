@@ -24,13 +24,22 @@ import {
 import { NodeName } from "./Nodes";
 import { positionNodes } from "./positionNodes";
 
+type ConditionalNode = {
+  operation: string,
+  parameter: string,
+  value: number,
+  label: string
+}
+
+type EndNode = { decision: string }
+
 export type Graph = {
   nodes: Node[];
   edges: Edge[];
   setNodes: Dispatch<SetStateAction<Node[]>>;
   setEdges: Dispatch<SetStateAction<Edge[]>>;
   addNodeAfterEdge: (params: { nodeName: NodeName; edge: Edge }) => void;
-  updateNode: (params: { id: string, operation: string, parameter: string, value: number, label: string }) => void;
+  updateNode: (id: string, params: ConditionalNode | EndNode) => void;
   reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance: Dispatch<SetStateAction<ReactFlowInstance | null>>;
   fitZoomToGraph: (reactFlowRef: RefObject<HTMLDivElement>) => void;
@@ -77,19 +86,14 @@ export function GraphProvider({ children }: PropsWithChildren) {
     positionElements(updatedNodes, updatedEdges);
   };
 
-  const updateNode: Graph['updateNode'] = ({ id: nodeId, operation, parameter, value, label }) => {
-    const updatedNodes = nodes.map(node => node.id === nodeId ? {
+  const updateNode: Graph['updateNode'] = (id, params) => {
+    const updatedNodes = nodes.map(node => node.id === id ? {
       ...node,
-      data: Object.assign(node.data, {
-        operation,
-        parameter,
-        value,
-        label
-      })
+      data: Object.assign(node.data, params)
     } : node)
 
     positionElements(updatedNodes, edges)
-
+    
     closeEditorDrawer();
   }
 

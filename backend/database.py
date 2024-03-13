@@ -10,6 +10,9 @@ class Database:
     def readPolicies(self) -> list[Policy]:
         return self.session.query(Policy).all()
     
+    def readPolicy(self, id: str) -> list[Policy]:
+        return self.session.get(Policy, id)
+    
     def createPolicy(self, title: str, edges: list[Edge], nodes:list[Node]) -> Policy:
         newPolicy = Policy(title=title, edges=edges, nodes=nodes)
         self.session.add(newPolicy)

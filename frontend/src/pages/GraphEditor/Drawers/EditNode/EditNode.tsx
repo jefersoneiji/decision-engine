@@ -21,8 +21,7 @@ export const EditNodeDrawer = ({ id: nodeId, operation, parameter, value }: Edit
 
     const onSave = () => {
         const label = currParameter + ' ' + currOperation + " " + currValue
-        updateNode({
-            id: nodeId!,
+        updateNode(nodeId!,{
             operation: currOperation,
             parameter: currParameter,
             value: currValue,

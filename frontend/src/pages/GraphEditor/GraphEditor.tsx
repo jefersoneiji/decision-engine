@@ -54,7 +54,7 @@ function ReactFlowSandbox() {
   useEffect(() => {
     const initialNodes = [
       generateNode({ nodeName: "start", id: "start" }),
-      generateNode({ nodeName: "end" }),
+      generateNode({ nodeName: "end", data: { decision: 'False' } }),
     ];
     const initialEdges = [
       generateEdge({

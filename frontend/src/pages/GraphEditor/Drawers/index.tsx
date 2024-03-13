@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { DrawerName, editor } from '../Editor';
 import { ChooseNodeDrawer } from './ChooseNode/ChooseNode';
 import { EditNodeDrawer } from './EditNode/EditNode';
+import { EditDecisionNodeDrawer } from './EditNode/EditDecisionNode';
 
 export type CommonDrawerProps = {
   id?: string;
@@ -11,7 +12,8 @@ export type CommonDrawerProps = {
 // eslint-disable-next-line react-refresh/only-export-components
 export const drawers = {
   [DrawerName.newNode]: ChooseNodeDrawer,
-  [DrawerName.editNode]: EditNodeDrawer
+  [DrawerName.editNode]: EditNodeDrawer,
+  [DrawerName.editDecisionNode]: EditDecisionNodeDrawer
 } satisfies Record<DrawerName, (props: never) => JSX.Element>;
 
 export const CurrentDrawer = () => {

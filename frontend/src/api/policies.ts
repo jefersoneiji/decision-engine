@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import type { Edge, Node, ReactFlowJsonObject, Viewport } from "reactflow";
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -9,7 +10,7 @@ const instance = axios.create({
 export async function getAllPolicies() {
     try {
         await instance.get('/policies/')
-        
+
         toast.success(
             'Got all policies fetched!',
             {
@@ -29,7 +30,13 @@ export async function getAllPolicies() {
     }
 }
 
-export async function savePolicy(data) {
+export type PolicyData = {
+    nodes: Array<Node>;
+    edges: Array<Edge>
+    viewport: Viewport
+}
+
+export async function savePolicy(data: ReactFlowJsonObject<PolicyData>) {
     try {
         await instance.post('/policies/', {
             title: 'Lorem ipsum',
