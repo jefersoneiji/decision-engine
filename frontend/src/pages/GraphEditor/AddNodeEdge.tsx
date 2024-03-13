@@ -65,6 +65,7 @@ export function AddNodeEdge({
           >
             <PlusCircleIcon className="w-[130%] absolute text-teal-500 group-hover-focus:text-teal-300 transition-colors bg-white group-hover-focus:bg-slate-900 duration-300" />
           </button>
+          <p className="text-center mt-5 -translate-x-2" >{label}</p>
         </div>
       </EdgeLabelRenderer>
     </>
