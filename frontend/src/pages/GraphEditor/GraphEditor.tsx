@@ -6,12 +6,13 @@ import { ToastContainer } from 'react-toastify'
 
 import { AddNodeEdge } from "./AddNodeEdge";
 import { CurrentDrawer } from "./Drawers";
-import { EditorProvider } from "./Editor";
+import { DrawerName, EditorProvider, editor } from "./Editor";
 import { GraphProvider, graph } from "./Graph";
 import { allNodes } from "./Nodes";
 import { generateEdge, generateNode } from "./nodeGeneration";
 import { positionNodes } from "./positionNodes";
 import { savePolicy } from "@src/api/policies";
+import { PolicyProvider, policy } from "./Policy";
 
 const edgeTypes = {
   "add-node": AddNodeEdge,
@@ -70,6 +71,8 @@ function ReactFlowSandbox() {
     setEdges(positionedEdges);
   }, []);
 
+  const {title} = useContext(policy)
+
   return (
     <div className="h-full flex flex-col overflow-hidden w-full relative">
       <ReactFlow
@@ -83,7 +86,13 @@ function ReactFlowSandbox() {
         deleteKeyCode={null}
       >
         <Background className="bg-N-75" size={2} color="#C1C4D6" />
-        <Panel position="bottom-right">
+        <Panel position="top-center">
+          <p className="bg-white text-gray-800 font-semibold py-2 px-4 border rounded shadow">
+            Policy Name: {title}
+          </p>
+        </Panel>
+        <Panel position="bottom-right" className="flex flex-col">
+          <EditPolicyButton />
           <SaveButton />
         </Panel>
       </ReactFlow>
@@ -96,10 +105,29 @@ const SaveButton = () => {
   const { toObject } = useReactFlow()
   return (
     <button
-      className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      className="mb-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
       onClick={() => savePolicy(toObject())}
     >
       Save policy
+    </button>
+  )
+}
+
+const EditPolicyButton = () => {
+  const { showDrawer } = useContext(editor)
+  const { title } = useContext(policy)
+
+  const onShowDrawer = () => {
+    showDrawer(DrawerName.editPolicy, {
+      policyTitle: title
+    })
+  }
+  return (
+    <button
+      className="mb-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      onClick={onShowDrawer}
+    >
+      Edit Policy
     </button>
   )
 }
@@ -107,7 +135,9 @@ export function GraphEditor() {
   return (
     <EditorProvider>
       <GraphProvider>
-        <ReactFlowSandbox />
+        <PolicyProvider>
+          <ReactFlowSandbox />
+        </PolicyProvider>
       </GraphProvider>
     </EditorProvider>
   );
