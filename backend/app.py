@@ -6,6 +6,7 @@ from database import databaseSetup, createDatabaseTables
 from routes.execute import execute_policy
 from routes.policies import execute_policies
 from database import Database, dbTypeInApp
+from routes.error_handlers import registerErrorHandlers
 
 engine = create_engine(databaseSetup.DATABASE_URI)
 dbSession = sessionmaker(bind=engine)
@@ -23,6 +24,7 @@ def after_request(response):
     app.db.closeConnection()
     return response
 
+app.config.from_object(databaseSetup)
 app.register_blueprint(execute_policy)
 app.register_blueprint(execute_policies)
-app.config.from_object(databaseSetup)
+registerErrorHandlers(app)
