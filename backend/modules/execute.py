@@ -31,5 +31,16 @@ def doDecision(data, edges: list[Edge], nodes: list[Node], node: Node):
     elif node['type'] == 'end':
         return True if node['data']['decision'] == 'True' else False
         
-
-
+def checkMissingParameters(data, nodes: list[Node]):
+    parameters = []
+    missingParameters = []
+    for node in nodes:
+        if node['type'] == 'conditional':
+            parameters.append(node['data']['parameter'])
+    for param in parameters:
+        try:
+            data[param]
+        except:
+            missingParameters.append(param)
+    
+    return missingParameters
