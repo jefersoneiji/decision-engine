@@ -4,12 +4,12 @@ def load_mock_data(file_path):
     with open(file_path) as file:
         return json.load(file)
 
-def generate_policy():
-    data = load_mock_data('./tests/mockData.json')
+def generate_policy(policy):
+    data = load_mock_data('./tests/mockData.json')[policy]
     return data
 
-def create_policy(client):
-    return client.post('/policies/', json=generate_policy())
+def create_policy(client, policy='simple'):
+    return client.post('/policies/', json=generate_policy(policy))
 
 def get_policy(client,id):
     return client.get(f'/policies/{id}')
