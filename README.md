@@ -48,7 +48,11 @@ Execute the following command:
    ```cmd
    yarn test
    ```
+## Linting 
 
+```shell
+yarn lint
+```
 ## Apps
 
 - [README](./frontend/README.md) | `Frontend`: Contains front-end logic for the policy editor

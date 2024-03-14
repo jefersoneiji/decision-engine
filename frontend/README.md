@@ -15,6 +15,11 @@ It's the UI for creating, editing and storing one Policy.
 ```shell
 yarn dev
 ```
+## Linting
+
+```shell
+yarn lint
+```
 
 ## Docs
 

@@ -52,3 +52,9 @@ Pytest is the choosen test runner. For running the test suite execute:
    ```cmd
    yarn test
    ```
+
+## Linting
+
+```shell
+yarn lint
+```
