@@ -60,6 +60,21 @@ yarn lint
 - [README](./backend/README.md#policydb) | `PolicyDB`: Local database with sqlite and sqlalchemy
 - [README](./backend/README.md#executionengine) | `ExecutionEngine`: Responsible for processing and outputing one decision after executing a policy
 
+## Design Decisions 
+Turbo is used to reduce the number of steps required for executing commands such as spin up apps in dev mode. 
+
+### Back-End
+
+- For the sake of speed and simplicity. SQLite was choosen as local database engine
+- Folders contain file according to their purpose. For instance `routes` only contains API routes. This structure make files predictible
+- As a way to provent bugs and enforce code styling `pytest` was added to the project
+
+### Front-End
+
+- Because of its reliability and simplicity `Axios` was chosen as `http-client`
+- Most user feedback comes shows as `Toast` notifications from `react-toastify`
+- As a way to provent bugs and enforce code styling `eslint` was added to the project
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
