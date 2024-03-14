@@ -24,7 +24,7 @@ def test_create_policy(client):
     
     # Test creation with missing data fields
     response = create_policy(client, policy='missing_data_fields')
-    check_response(response, status=400, data={'error':"Comparions can't have empty fields"})
+    check_response(response, status=400, data={'error':"Comparisons can't have empty fields"})
 
     # Test creation when only start node is received
     response = create_policy(client, 'only_start_node')

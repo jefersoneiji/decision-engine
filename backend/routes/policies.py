@@ -27,7 +27,7 @@ def create_policy():
         if contains_only_start_node(data):
             abort(400, description='At least one conditional node is required')
         if not node_data_filled(data["nodes"]):
-            abort(400, description="Comparions can't have empty fields")
+            abort(400, description="Comparisons can't have empty fields")
         
         new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
         return jsonify(new_policy), 201
