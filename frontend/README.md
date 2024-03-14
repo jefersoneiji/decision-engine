@@ -46,3 +46,13 @@ In the root page we have 3 contexts:
 We already have pre-existing functions to help you with the graph, for
 positioning and also nodes/edges. They are the files: `nodeGeneration.ts` and
 `positionNodes.ts`.
+
+### AI Assistant (in progress)
+
+<div align="center">
+  <img  alt="ai-assistant-gif" src="./ai-assistant.gif">
+</div>
+
+The AI Assistant is available in the bottom right corner of the board. Its purpose is to assist the user in getting through his/her problem-solving. Also, for providing answers related to the documentation. 
+
+It's possible through the ChatGPT API. All training and response generation is done by the OpenAI model. 

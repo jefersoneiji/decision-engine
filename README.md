@@ -7,7 +7,7 @@
 </h4>
 
 <div align="center">
-  <img  alt="woovi-logo" width="250" height="350" src="./policy_diagram.svg">
+  <img  alt="policy-diagram" width="250" height="350" src="./policy_diagram.svg">
 </div>
 
 ## Summary 
@@ -74,9 +74,6 @@ Turbo is used to reduce the number of steps required for executing commands such
 - Because of its reliability and simplicity `Axios` was chosen as `http-client`
 - Most user feedback comes shows as `Toast` notifications from `react-toastify`
 - As a way to provent bugs and enforce code styling `eslint` was added to the project
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+- An [AI assistant](./frontend/README.md) may be helpful in answering user's questions related to docs and help them through problem solving while create policies
 
 Made by Jeferson Eiji ➡️ [Get in touch!](https://www.linkedin.com/in/jeferson-eiji/)
