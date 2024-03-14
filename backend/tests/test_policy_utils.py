@@ -31,3 +31,6 @@ def check_response(response,status=None, length=None, data=None):
         assert response_data == data
         if length != None:
             assert len(response_data) == length
+
+def delete_policy(client, id):
+    return client.delete(f'/policies/{id}')

@@ -20,6 +20,18 @@ class Database:
         
         return self.read_policy(id=new_policy.id)
 
+    def delete_policy(self, id: str) ->bool:
+        policy = self.session.query(Policy).filter_by(id=id)
+        if policy.first() == None:
+            return None
+        
+        policy.delete()
+        self.session.commit()
+        return not self.policy_exists(id=id)
+    
+    def policy_exists(self, id: str) -> bool:
+        return self.session.get(Policy, id) != None
+
     def clear_database(self):
         self.session.query(Policy).delete()
         self.session.commit()

@@ -24,3 +24,10 @@ def create_policy():
     new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
     return jsonify(new_policy), 201
 
+@execute_policies.route('/<string:id>', methods=['DELETE'])
+def delete_policy(id):
+    deleted = app.db.delete_policy(id)
+    if not deleted:
+        abort(404)
+    return '',204
+
