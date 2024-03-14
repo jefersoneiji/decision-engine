@@ -11,7 +11,9 @@ app: dbTypeInApp = current_app
 def execute(id):
     data = request.get_json()
     policy = app.db.read_policy(id)
-
+    if not policy:
+        abort(404)
+        
     missing_parameters = check_missing_parameters(data ,policy.nodes)
     if len(missing_parameters) != 0:
         abort(400, description=f'Missing required parameters: {", ".join(missing_parameters) }')
