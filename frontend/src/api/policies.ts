@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import type { Edge, Node, ReactFlowJsonObject, Viewport } from "reactflow";
 
@@ -18,9 +18,10 @@ export async function getAllPolicies() {
                 position: 'bottom-left'
             }
         )
-    } catch (e) {
+    } catch (e: unknown) {
+        const error = e as AxiosError<{ error: string }>
         toast.error(
-            'Something went wrong!',
+            error.response?.data.error || 'Something went wrong!',
             {
                 autoClose: 5000,
                 position: 'bottom-left'
@@ -36,14 +37,15 @@ export type PolicyData = {
     viewport: Viewport
 }
 
-export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & {title: string}) {
+export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & { title: string }) {
     try {
+        console.log('data is: ', data)
         await instance.post('/policies/', {
             title: data.title,
             edges: data.edges,
             nodes: data.nodes,
         })
-        
+
         toast.success(
             'Policy Saved!',
             {
@@ -51,9 +53,10 @@ export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & {title:
                 position: 'bottom-left'
             }
         )
-    } catch (e) {
+    } catch (e: unknown) {
+        const error = e as AxiosError<{ error: string }>
         toast.error(
-            'Something went wrong while saving policy!',
+            error.response?.data.error || 'Something went wrong while saving policy!',
             {
                 autoClose: 5000,
                 position: 'bottom-left'
