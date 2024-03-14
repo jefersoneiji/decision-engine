@@ -11,12 +11,20 @@ def client():
         db.clear_database()
         yield client
 
-def test_policy(client):
+def test_create_policy(client):
     # Test creation success
     response = create_policy(client)
     check_response(response, status=201)
     response = get_policy(client, response.get_json()['id'])
     check_response(response, status=200, length=5)
+
+    # Test creation with missing params
+    response = create_policy(client, policy='empty')
+    check_response(response, status=400, data={'error':'Missing required arguments'})
+    
+    # Test creation with missing data fields
+    response = create_policy(client, policy='missing_data_fields')
+    check_response(response, status=400, data={'error':"Comparions can't have empty fields"})
 
     # Test creation when only start node is received
     response = create_policy(client, 'only_start_node')
@@ -24,6 +32,10 @@ def test_policy(client):
     
 def test_get_policy(client):
     create_policy(client)
+
+    # Test fetching existent policy
+    response = get_policy(client, id=1)
+    check_response(response, status=200,length=5)
 
     # Test fetching non existent policy
     response = get_policy(client, id=8)
