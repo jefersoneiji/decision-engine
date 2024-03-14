@@ -18,6 +18,10 @@ def test_policy(client):
     response = get_policy(client, response.get_json()['id'])
     check_response(response, status=200, length=5)
 
+    # Test creation when only start node is received
+    response = create_policy(client, 'only_start_node')
+    check_response(response, status=400, data={'error':'At least one conditional node is required'})
+    
 def test_get_policy(client):
     create_policy(client)
 
