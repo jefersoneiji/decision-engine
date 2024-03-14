@@ -71,7 +71,7 @@ function ReactFlowSandbox() {
     setEdges(positionedEdges);
   }, []);
 
-  const {title} = useContext(policy)
+  const { title } = useContext(policy)
 
   return (
     <div className="h-full flex flex-col overflow-hidden w-full relative">
@@ -92,6 +92,7 @@ function ReactFlowSandbox() {
           </p>
         </Panel>
         <Panel position="bottom-right" className="flex flex-col">
+          <ResetBoardButton />
           <EditPolicyButton />
           <SaveButton />
         </Panel>
@@ -103,14 +104,31 @@ function ReactFlowSandbox() {
 }
 const SaveButton = () => {
   const { toObject } = useReactFlow()
-  const {title} = useContext(policy)
+  const { title } = useContext(policy)
 
+  const onSavePolicy = () => {
+    savePolicy({ ...toObject(), title })
+  }
   return (
     <button
       className="mb-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-      onClick={() => savePolicy({...toObject(), title})}
+      onClick={onSavePolicy}
     >
-      Save policy
+      Save Policy
+    </button>
+  )
+}
+
+const ResetBoardButton = () => {
+  const onResetBoard = () => {
+    location.reload()
+  }
+  return (
+    <button
+      className="mb-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      onClick={onResetBoard}
+    >
+      Reset Policy
     </button>
   )
 }
