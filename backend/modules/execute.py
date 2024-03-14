@@ -1,7 +1,7 @@
 from typing import Union
 from models.policy import Edge, Node
 
-def findBy(elems,key: str, value: str) -> Union[Edge, Node]:
+def find_by(elems,key: str, value: str) -> Union[Edge, Node]:
     for elem in elems:
         if elem[key] == value:
             return elem
@@ -23,23 +23,23 @@ def compare(data, node: Node):
     elif operation == '=':
         return parameter == value
 
-def findEdgeSource(edges: list[Edge], id: str, label: str):
+def find_edge_source(edges: list[Edge], id: str, label: str):
     for edge in edges:
         if edge['source'] == id and edge['label'] == label:
             return edge
         
-def doDecision(data, edges: list[Edge], nodes: list[Node], node: Node):
+def do_decision(data, edges: list[Edge], nodes: list[Node], node: Node):
     if node['type'] == 'conditional':
         result = compare(data, node)
-        edge = findEdgeSource(edges, node['id'], 'True' if result else 'False' )
-        nextNode = findBy(elems=nodes, key='id', value=edge['target'])
-        return doDecision(data, edges, nodes, node=nextNode)
+        edge = find_edge_source(edges, node['id'], 'True' if result else 'False' )
+        next_node = find_by(elems=nodes, key='id', value=edge['target'])
+        return do_decision(data, edges, nodes, node=next_node)
     elif node['type'] == 'end':
         return True if node['data']['decision'] == 'True' else False
         
-def checkMissingParameters(data, nodes: list[Node]):
+def check_missing_parameters(data, nodes: list[Node]):
     parameters = []
-    missingParameters = []
+    missing_parameters = []
     for node in nodes:
         if node['type'] == 'conditional':
             parameters.append(node['data']['parameter'])
@@ -47,6 +47,6 @@ def checkMissingParameters(data, nodes: list[Node]):
         try:
             data[param]
         except:
-            missingParameters.append(param)
+            missing_parameters.append(param)
     
-    return missingParameters
+    return missing_parameters

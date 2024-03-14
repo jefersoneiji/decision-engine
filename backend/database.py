@@ -7,24 +7,24 @@ class Database:
     def __init__(self, Session) -> None:
         self.session = Session()
     
-    def readPolicies(self) -> list[Policy]:
+    def read_policies(self) -> list[Policy]:
         return self.session.query(Policy).all()
     
-    def readPolicy(self, id: str) -> list[Policy]:
+    def read_policy(self, id: str) -> list[Policy]:
         return self.session.get(Policy, id)
     
-    def createPolicy(self, title: str, edges: list[Edge], nodes:list[Node]) -> Policy:
-        newPolicy = Policy(title=title, edges=edges, nodes=nodes)
-        self.session.add(newPolicy)
+    def create_policy(self, title: str, edges: list[Edge], nodes:list[Node]) -> Policy:
+        new_policy = Policy(title=title, edges=edges, nodes=nodes)
+        self.session.add(new_policy)
         self.session.commit()
         
-        return self.readPolicy(id=newPolicy.id)
+        return self.read_policy(id=new_policy.id)
 
-    def clearDatabase(self):
+    def clear_database(self):
         self.session.query(Policy).delete()
         self.session.commit()
 
-    def closeConnection(self, execution=None):
+    def close_connection(self, execution=None):
         self.session.close()
         
 class databaseSetup:
@@ -33,7 +33,7 @@ class databaseSetup:
     HOST = 'localhost'
 
 
-def createDatabaseTables(Session, engine):
+def create_database_tables(Session, engine):
     session = Session()
     Base.metadata.create_all(bind=engine)
     session.commit()
