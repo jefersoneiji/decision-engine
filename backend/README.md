@@ -9,6 +9,7 @@ It contains the API for policy operations. The REST protocol is adopted.
 |GET|`/policies/`|Retrieves all policies|
 |POST|`/policies/`|Creates a new policy|
 |GET|`/policies/<string:id>`|Retrives one policy|
+|DELETE|`/policies/<string:id>`|Deletes one policy|
 |POST|`/execute/<string:id>`|Executes one policy|
 
 
