@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, current_app, request, abort
 from flask_cors import CORS
 from database import dbTypeInApp
+from modules.policies import contains_only_start_node
 
 execute_policies = Blueprint('policies', __name__, url_prefix='/policies')
 cors = CORS(execute_policies, resources={r'/*': {'origins': '*'}})
@@ -21,8 +22,16 @@ def get_policy(id):
 @execute_policies.route('/', methods=['POST'])
 def create_policy():
     data  = request.get_json()
-    new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
-    return jsonify(new_policy), 201
+
+    try:
+        if contains_only_start_node(data):
+            abort(400, description='At least one conditional node is required')
+
+        new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
+        return jsonify(new_policy), 201
+    except KeyError:
+        abort(400, description='Missing required arguments')
+
 
 @execute_policies.route('/<string:id>', methods=['DELETE'])
 def delete_policy(id):
