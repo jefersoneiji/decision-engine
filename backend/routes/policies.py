@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, current_app, request, abort
 from flask_cors import CORS
 from database import dbTypeInApp
-from modules.policies import contains_only_start_node
+from modules.policies import contains_only_start_node, node_data_filled
 
 execute_policies = Blueprint('policies', __name__, url_prefix='/policies')
 cors = CORS(execute_policies, resources={r'/*': {'origins': '*'}})
@@ -26,7 +26,9 @@ def create_policy():
     try:
         if contains_only_start_node(data):
             abort(400, description='At least one conditional node is required')
-
+        if not node_data_filled(data["nodes"]):
+            abort(400, description="Comparions can't have empty fields")
+        
         new_policy = app.db.create_policy(title=data['title'], edges=data['edges'], nodes=data['nodes'])
         return jsonify(new_policy), 201
     except KeyError:
