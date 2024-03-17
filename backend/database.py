@@ -1,7 +1,10 @@
 from flask import Flask
+from  dotenv import dotenv_values
 
 from models import Base
 from models.policy import Policy, Edge, Node
+
+config = dotenv_values('.env.local')
 
 class Database: 
     def __init__(self, Session) -> None:
@@ -39,10 +42,10 @@ class Database:
     def close_connection(self, execution=None):
         self.session.close()
         
-class databaseSetup:
-    DATABASE_URI = 'sqlite:///policies.local.db'
-    PORT = 7000
-    HOST = 'localhost'
+class Config:
+    DATABASE_URI = config['DATABASE_URI'] or 'sqlite:///policies.db'
+    PORT = config['API_PORT'] or 5000
+    HOST = config['HOST'] or 'localhost'
 
 
 def create_database_tables(Session, engine):

@@ -1,9 +1,13 @@
 import pytest
 from database import Database
-from app import app, dbSession
+from app import create_app
 from .test_policy_utils import create_policy, check_response, get_policy, delete_policy
 
-db = Database(dbSession)
+new_app = create_app(test=True)
+app = new_app['app']
+Session = new_app['Session']
+
+db = Database(Session)
 
 @pytest.fixture
 def client():
