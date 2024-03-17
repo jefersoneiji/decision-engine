@@ -56,3 +56,9 @@ positioning and also nodes/edges. They are the files: `nodeGeneration.ts` and
 The AI Assistant is available in the bottom right corner of the board. Its purpose is to assist the user in getting through his/her problem-solving. Also, for providing answers related to the documentation. 
 
 It's possible through the ChatGPT API. All training and response generation is done by the OpenAI model. 
+
+### Connection Loss or Slow
+
+In the scenario of slow/aborted connection the http-client (axios) wll retry the request three times before emitting an error message. 
+
+For offline requests an Error is thrown by the `handlesOfflineRequest` function.

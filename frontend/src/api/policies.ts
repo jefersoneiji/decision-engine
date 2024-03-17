@@ -1,11 +1,15 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import type { Edge, Node, ReactFlowJsonObject, Viewport } from "reactflow";
+import axiosRetry from "axios-retry";
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    timeout: 5000
 })
+
+axiosRetry(instance, { retries: 3 })
 
 export async function getAllPolicies() {
     try {
@@ -27,6 +31,7 @@ export async function getAllPolicies() {
                 position: 'bottom-left'
             }
         )
+        handlesOfflineRequest()
         throw new Error(e as string)
     }
 }
@@ -39,7 +44,6 @@ export type PolicyData = {
 
 export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & { title: string }) {
     try {
-        console.log('data is: ', data)
         await instance.post('/policies/', {
             title: data.title,
             edges: data.edges,
@@ -62,6 +66,14 @@ export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & { title
                 position: 'bottom-left'
             }
         )
+
+        handlesOfflineRequest()
         throw new Error(e as string)
+    }
+}
+
+const handlesOfflineRequest = () => {
+    if (navigator.onLine === false) {
+        throw new Error('Network is offline.')
     }
 }
