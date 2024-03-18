@@ -13,6 +13,7 @@ import { generateEdge, generateNode } from "./nodeGeneration";
 import { positionNodes } from "./positionNodes";
 import { savePolicy } from "@src/api/policies";
 import { PolicyProvider, policy } from "./Policy";
+import { Modal } from "@src/components/Modal";
 
 const edgeTypes = {
   "add-node": AddNodeEdge,
@@ -95,6 +96,7 @@ function ReactFlowSandbox() {
           <ResetBoardButton />
           <EditPolicyButton />
           <SaveButton />
+          <PoliciesList />
         </Panel>
       </ReactFlow>
       <ToastContainer />
@@ -111,7 +113,7 @@ const SaveButton = () => {
   }
   return (
     <button
-      className="mb-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      className="mb-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
       onClick={onSavePolicy}
     >
       Save Policy
@@ -149,6 +151,31 @@ const EditPolicyButton = () => {
     >
       Edit Policy
     </button>
+  )
+}
+
+const PoliciesList = () => {
+  const [open, setOpen] = useState(false)
+
+  const onOpen = () => {
+    setOpen(true)
+  }
+  const onClose = () => {
+    setOpen(false)
+  }
+
+  return (
+    <>
+      <button
+        className="mb-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        onClick={onOpen}
+      >
+        Policies List
+      </button>
+      <Modal open={open} onClose={onClose} >
+        <p>Testing</p>
+      </Modal>
+    </>
   )
 }
 export function GraphEditor() {
