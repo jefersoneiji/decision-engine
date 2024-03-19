@@ -42,3 +42,21 @@ def delete_policy(id):
         abort(404)
     return '',204
 
+@execute_policies.route('/<string:id>', methods=['PUT'])
+def maybe_update_policy(id):
+    data = request.get_json()
+    policy = app.db.read_policy(id)
+    if not policy:
+        abort(404)
+    
+    try:
+        if contains_only_start_node(data):
+            abort(400, description='At least one conditional node is required')
+        elif not node_data_filled(data["nodes"]):
+            abort(400, description="Comparisons can't have empty fields")
+        
+        updated_policy = app.db.update_policy(id=id, title=data['title'], edges=data['edges'], nodes=data['nodes'])
+        return jsonify(updated_policy)
+    except KeyError:
+        # traceback.print_exc()
+        abort(400, description='Missing required arguments')
