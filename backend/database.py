@@ -1,10 +1,13 @@
 from flask import Flask
 from  dotenv import dotenv_values
+import os
 
 from models import Base
 from models.policy import Policy, Edge, Node
 
 config = dotenv_values('.env.local')
+HEROKU_PORT = os.environ.get('HEROKU_PORT')
+HEROKU_DATABASE_URI = os.environ.get('HEROKU_DATABASE_URI')
 
 class Database: 
     def __init__(self, Session) -> None:
@@ -53,8 +56,8 @@ class Database:
         self.session.close()
         
 class Config:
-    DATABASE_URI = config['DATABASE_URI'] or 'sqlite:///policies.db'
-    PORT = config['API_PORT'] or 5000
+    DATABASE_URI = HEROKU_DATABASE_URI or config['DATABASE_URI']
+    PORT = HEROKU_PORT or config['API_PORT'] 
     HOST = config['HOST'] or 'localhost'
 
 
