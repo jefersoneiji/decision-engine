@@ -3,3 +3,6 @@ __pycache__/
 
 # Database Files
 *.db
+
+# Test coverage report
+.coverage

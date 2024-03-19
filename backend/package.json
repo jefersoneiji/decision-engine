@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "python run.py",
     "test": "pytest",
+    "coverage:run": "coverage run -m pytest",
+    "coverage:report": "coverage report",
     "lint": "pylint --recursive=y . backend/*",
     "install": "pip install -r requirements.txt"
   }
