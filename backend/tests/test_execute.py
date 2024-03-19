@@ -24,10 +24,20 @@ def test_execution(client):
     response = execute(client, id=policy_id, data={'income': 1005})
     check_response(response, status=200)
     check_decision(response, expected=True)
+    
+    # Test policy returning false
+    response = execute(client, id=policy_id, data={'income': 10})
+    check_response(response, status=200)
+    check_decision(response, expected=False)
 
     # Testing missing parameters 
     response = execute(client, id=policy_id, data={})
     check_response(response, status=400, data={'error':'Missing required parameters: income'})
+    
+    # Testing incorret parameter data
+    response = execute(client, id=policy_id, data={"income": -.2})
+    check_response(response, status=200)
+    check_decision(response, expected=False)
     
     # Testing non existent policy
     response = execute(client, id=555, data={})
