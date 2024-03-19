@@ -13,7 +13,7 @@ axiosRetry(instance, { retries: 3 })
 
 export async function getAllPolicies() {
     try {
-        await instance.get('/policies/')
+        const response = await instance.get('/policies/')
 
         toast.success(
             'Got all policies fetched!',
@@ -22,6 +22,8 @@ export async function getAllPolicies() {
                 position: 'bottom-left'
             }
         )
+
+        return response;
     } catch (e: unknown) {
         const error = e as AxiosError<{ error: string }>
         toast.error(
