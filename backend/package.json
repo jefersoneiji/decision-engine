@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "python run.py",
+    "start": "waitress-serve run_waitress:app",
     "test": "pytest",
     "coverage:run": "coverage run -m pytest",
     "coverage:report": "coverage report",
