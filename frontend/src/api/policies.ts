@@ -64,6 +64,31 @@ export async function deletePolicy(id: string) {
     }
 }
 
+export async function getPolicy(id: string) {
+    try {
+        const response = await instance.get(`/policies/${id}`)
+
+        toast.success(
+            'Policy found!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+        return response
+    } catch (e: unknown) {
+        const error = e as AxiosError<{ error: string }>
+        toast.error(
+            error.response?.data.error || 'Something went wrong!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+        handlesOfflineRequest()
+        throw new Error(e as string)
+    }
+}
 export type PolicyData = {
     nodes: Array<Node>;
     edges: Array<Edge>
