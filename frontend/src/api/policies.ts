@@ -38,6 +38,32 @@ export async function getAllPolicies() {
     }
 }
 
+export async function deletePolicy(id: string) {
+    try {
+        await instance.delete(`/policies/${id}`)
+
+        toast.success(
+            'Policy deleted!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+
+    } catch (e: unknown) {
+        const error = e as AxiosError<{ error: string }>
+        toast.error(
+            error.response?.data.error || 'Something went wrong!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+        handlesOfflineRequest()
+        throw new Error(e as string)
+    }
+}
+
 export type PolicyData = {
     nodes: Array<Node>;
     edges: Array<Edge>
