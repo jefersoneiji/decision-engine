@@ -11,7 +11,7 @@ import { GraphProvider, graph } from "./Graph";
 import { allNodes } from "./Nodes";
 import { generateEdge, generateNode } from "./nodeGeneration";
 import { positionNodes } from "./positionNodes";
-import { deletePolicy, getAllPolicies, getPolicy, savePolicy } from "@src/api/policies";
+import { deletePolicy, getAllPolicies, getPolicy, savePolicy, updatePolicy } from "@src/api/policies";
 import { PolicyProvider, policy } from "./Policy";
 import { Modal } from "@src/components/Modal";
 
@@ -106,9 +106,14 @@ function ReactFlowSandbox() {
 }
 const SaveButton = () => {
   const { toObject } = useReactFlow()
-  const { title } = useContext(policy)
+  const { title, isEditing, setIsEditing, id } = useContext(policy)
 
   const onSavePolicy = () => {
+    if (isEditing) {
+      updatePolicy(id, { ...toObject(), id, title })
+      setIsEditing(false)
+      return;
+    }
     savePolicy({ ...toObject(), title })
     location.reload()
   }
@@ -243,12 +248,17 @@ const TrashIcon = ({ id }: { id: string }) => {
 
 const EditIcon = ({ id }: { id: string }) => {
   const { setNodes, setEdges } = useContext(graph)
+  const { setIsEditing, setId, setTitle } = useContext(policy)
+
   const onEdit = () => {
     getPolicy(id).then(res => {
-      const { nodes, edges } = res.data
+      const { nodes, edges,title } = res.data
       const [positionedNodes, positionedEdges] = positionNodes(nodes, edges)
       setNodes(positionedNodes)
       setEdges(positionedEdges)
+      setIsEditing(true)
+      setId(id)
+      setTitle(title)
     })
   }
   return (
