@@ -11,7 +11,7 @@ class Database:
         self.session = Session()
     
     def read_policies(self) -> list[Policy]:
-        return self.session.query(Policy).all()
+        return self.session.query(Policy).order_by(Policy.createdAt.desc()).all()
     
     def read_policy(self, id: str) -> list[Policy]:
         return self.session.get(Policy, id)
@@ -34,6 +34,16 @@ class Database:
     
     def policy_exists(self, id: str) -> bool:
         return self.session.get(Policy, id) != None
+
+    def update_policy(self, id: str, title: str, edges: list[Edge], nodes: list[Node]) -> Policy:
+        self.session.query(Policy).filter_by(id=id).update({
+            'title': title,
+            'edges': edges,
+            'nodes': nodes,
+        }, synchronize_session='fetch')
+        self.session.commit()
+        
+        return self.read_policy(id=id)
 
     def clear_database(self):
         self.session.query(Policy).delete()

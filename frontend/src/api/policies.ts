@@ -125,6 +125,36 @@ export async function savePolicy(data: ReactFlowJsonObject<PolicyData> & { title
     }
 }
 
+export async function updatePolicy(id: string, data: ReactFlowJsonObject<PolicyData> & { title: string, id: string }) {
+    try {
+        await instance.put(`/policies/${id}`, {
+            title: data.title,
+            edges: data.edges,
+            nodes: data.nodes,
+        })
+
+        toast.success(
+            'Policy Updated!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+    } catch (e: unknown) {
+        const error = e as AxiosError<{ error: string }>
+        toast.error(
+            error.response?.data.error || 'Something went wrong while saving policy!',
+            {
+                autoClose: 5000,
+                position: 'bottom-left'
+            }
+        )
+
+        handlesOfflineRequest()
+        throw new Error(e as string)
+    }
+}
+
 const handlesOfflineRequest = () => {
     if (navigator.onLine === false) {
         throw new Error('Network is offline.')

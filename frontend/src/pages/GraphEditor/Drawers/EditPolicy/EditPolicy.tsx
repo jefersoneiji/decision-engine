@@ -7,9 +7,9 @@ import { policy } from '../../Policy'
 export const EditPolicyDrawer = ({ policyTitle }: { policyTitle: string }) => {
     const { drawerVisible, closeEditorDrawer } = useContext(editor)
     
-    const [newTitle, setNewTitle] = useState(policyTitle || 'Untitled')
+    const { setTitle,title } = useContext(policy)
+    const [newTitle, setNewTitle] = useState(policyTitle || title)
     
-    const { setTitle } = useContext(policy)
     const onSetTitle = () => {
         setTitle(newTitle)
         closeEditorDrawer()
