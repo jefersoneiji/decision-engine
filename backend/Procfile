@@ -1,0 +1,3 @@
+# Procfile
+
+api: waitress-serve run_waitress:app
