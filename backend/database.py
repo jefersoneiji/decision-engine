@@ -6,7 +6,8 @@ from models import Base
 from models.policy import Policy, Edge, Node
 
 config = dotenv_values('.env.local')
-HEROKU_PORT = os.environ.get('HEROKU_PORT')
+HEROKU_PORT = os.environ.get('PORT')
+HEROKU_HOST = os.environ.get('HEROKU_HOST')
 HEROKU_DATABASE_URI = os.environ.get('HEROKU_DATABASE_URI')
 
 class Database: 
@@ -58,8 +59,7 @@ class Database:
 class Config:
     DATABASE_URI = HEROKU_DATABASE_URI or config['DATABASE_URI']
     PORT = HEROKU_PORT or config['API_PORT'] 
-    HOST = config['HOST'] or 'localhost'
-
+    HOST = HEROKU_HOST or config['HOST']
 
 def create_database_tables(Session, engine):
     session = Session()
