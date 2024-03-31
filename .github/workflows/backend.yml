@@ -1,0 +1,35 @@
+name: Back-End Workflow for Heroku
+run-name: heroku workflow
+on: 
+  push:
+   branches: 
+    - main
+jobs: 
+    Backend:
+        runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: ./backend
+        steps:
+            - uses: actions/checkout@v4  
+
+            - name: Set Node.js 20.x
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20.x
+                
+            - name: Runs yarn install 
+              run: yarn install
+              
+            - name: Runs yarn test
+              run: yarn test
+
+            - name: Clean Package.json
+              run: rm -f package.json
+
+            - uses: akhileshns/heroku-deploy@v3.13.15 # This is the action
+              with:
+                heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+                heroku_email: ${{secrets.HEROKU_EMAIL}}
+                appdir: "backend"
