@@ -1,0 +1,40 @@
+name: Front-End Workflow to Netlify
+run-name: netlify workflow
+on: 
+  push:
+   branches: 
+    - main
+jobs: 
+   Frontend:
+        runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: ./frontend
+        steps:
+            - uses: actions/checkout@v4  
+
+            - name: Set Node.js 20.x
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20.x
+                
+            - name: Runs yarn install 
+              run: yarn install --immutable --immutable-cache --check-cache
+            
+            - name: Install Netlify CLI
+              run: yarn add -D netlify-cli
+
+            - name: Runs yarn test
+              run: yarn test
+            
+            - name: Build to Netlify
+              run: yarn netlify:build
+              env:
+                NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+                NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+            
+            - name: Deploy to Netlify
+              run: yarn netlify:deploy
+              env:
+                NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+                NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
