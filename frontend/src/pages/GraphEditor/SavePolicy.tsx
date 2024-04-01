@@ -9,14 +9,13 @@ export const SavePolicy = () => {
     const { toObject } = useReactFlow()
     const { title, isEditing, setIsEditing, id } = useContext(policy)
 
-    const onSave = () => {
+    const onSave = async () => {
         if (isEditing) {
             updatePolicy(id, { ...toObject(), id, title })
             setIsEditing(false)
             return;
         }
-        savePolicy({ ...toObject(), title })
-        location.reload()
+        await savePolicy({ ...toObject(), title }).then(() => location.reload())
     }
 
     return <BasicButton title="Save Policy" onClick={onSave} />

@@ -80,9 +80,8 @@ const PolicyItem = ({ id, title, createdAt }: { id: string, title: string, creat
 }
 
 const DeleteButton = ({ id }: { id: string }) => {
-    const onDelete = () => {
-        deletePolicy(id)
-        location.reload()
+    const onDelete = async () => {
+        await deletePolicy(id).then(() => location.reload())
     }
     return (
         <div className="flex justify-center cursor-pointer" onClick={onDelete}>
