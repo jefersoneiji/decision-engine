@@ -12,5 +12,5 @@ export const EditPolicy = () => {
             policyTitle: title
         })
     }
-    return <BasicButton title="Reset Policy" onClick={onEditDrawer} />
+    return <BasicButton title="Edit Policy" onClick={onEditDrawer} />
 }
