@@ -1,9 +1,9 @@
 <h1 align="center">
-    Vom Challenge
+    No-code Decision Engine
 </h1>
 
 <h4 align="center">
-    Decision Engine
+    for non-programmers
 </h4>
 
 <div align="center">
@@ -21,8 +21,6 @@ For this project to run, make sure these software are installed:
 - [python](https://www.python.org/downloads/)
 
 - [nodejs](https://nodejs.org/en/download/current)
-    
-- [pnpm](https://pnpm.io/installation)
     
 ## Installing
 
