@@ -43,7 +43,7 @@ In the root page we have 3 contexts:
 
 ### Utility
 
-We already have pre-existing functions to help you with the graph, for
+There already are pre-existing functions for
 positioning and also nodes/edges. They are the files: `nodeGeneration.ts` and
 `positionNodes.ts`.
 
