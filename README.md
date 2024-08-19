@@ -27,7 +27,7 @@ For this project to run, make sure these software are installed:
 To run locally:
 1. Clone this repo
    ```cmd
-   git@github.com:jefersoneiji/vom-take-home.git
+   git@github.com:jefersoneiji/decision-engine.git
    ```
 
 2. Install dependencies in your machine
