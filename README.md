@@ -6,9 +6,7 @@
     for non-programmers
 </h4>
 
-<div align="center">
-  <img  alt="policy-diagram" width="250" height="350" src="./policy_diagram.svg">
-</div>
+https://github.com/user-attachments/assets/c2b5353d-6dca-41dc-b0e3-8061d3cb4548
 
 ## Summary 
 
